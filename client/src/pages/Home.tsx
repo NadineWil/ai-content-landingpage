@@ -7,6 +7,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SEOHead } from "@/components/SEOHead";
+import { StrategicForm } from "@/components/StrategicForm";
 import { 
   Sparkles, 
   Target, 
@@ -18,12 +19,14 @@ import {
   ArrowRight,
   Palette,
   TrendingUp,
-  Shield
+  Shield,
+  Sparkles as SparklesIcon
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -34,6 +37,11 @@ export default function Home() {
   return (
     <>
       <SEOHead />
+      <style>{`
+        .animation-delay-200 { animation-delay: 200ms; }
+        .animation-delay-400 { animation-delay: 400ms; }
+        .animation-delay-600 { animation-delay: 600ms; }
+      `}</style>
       <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -79,9 +87,10 @@ export default function Home() {
               <Button 
                 size="lg" 
                 className="text-lg px-8 py-6 rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+                onClick={() => setIsFormOpen(true)}
               >
-                Kostenloses Erstgespräch buchen
-                <ArrowRight className="ml-2 w-5 h-5" />
+                Jetzt AI-Potenzial entdecken
+                <SparklesIcon className="ml-2 w-5 h-5" />
               </Button>
               <Button 
                 size="lg" 
@@ -456,19 +465,19 @@ export default function Home() {
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold text-foreground">
-              Bereit für AI-Content, der deine{" "}
-              <span className="gradient-text">Marke stärkt</span>?
+              Bereit für dein individuelles{" "}
+              <span className="gradient-text">AI-Potenzial</span>?
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Lass uns in einem kostenlosen Erstgespräch herausfinden, wie AI deinen 
-              Content-Bereich transformieren kann.
+              Antworte auf 4 strategische Fragen und erhalte eine persönliche Einschätzung – kostenlos.
             </p>
             <Button 
               size="lg" 
               className="text-xl px-12 py-8 rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+              onClick={() => setIsFormOpen(true)}
             >
-              Jetzt Erstgespräch buchen
-              <ArrowRight className="ml-3 w-6 h-6" />
+              Jetzt AI-Potenzial entdecken
+              <SparklesIcon className="ml-3 w-6 h-6" />
             </Button>
 
             <div className="pt-8 space-y-2">
@@ -486,6 +495,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Strategic Form Modal */}
+      <StrategicForm isOpen={isFormOpen} onOpenChange={setIsFormOpen} />
+      </div>
 
       {/* Footer */}
       <footer className="py-12 border-t border-border/50">
@@ -505,7 +518,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
     </>
   );
 }
